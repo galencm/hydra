@@ -23,6 +23,45 @@ To build the Hydra C stack do the following:
         cd ..
     done
 
+### Building Notes:
+
+**Remove `-Werror` flag**
+
+BefoAfter every run of `./configure` find the line in `Makefile` starting with `CPPFLAGS =` and remove the flag:
+```
+-Werror
+```
+Then run `make check`
+
+**Pkg-config**
+
+If following message appears while running configure:
+```
+configure: error: Cannot find required package for [...]
+```
+Try running configure with an envar:
+```
+PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/ ./configure 
+```
+**ZMQ Libraries**
+
+Zeromq libraries are typically installed to `/usr/local/lib`. This path may be needed to be added with ldconfig. To check if an installed library is available:
+```
+ldconfig -p | grep <partial_or_whole_library_name>
+```
+If library is not found in output, run:
+```
+sudo ldconfig /usr/local/lib
+```
+**Ports**
+
+The default configuration expects the following ports to be open on the local network:
+```
+49153/tcp 
+49152/tcp  
+5670/udp
+```
+
 ## Building Hydra QML app
 
 For documentation on building the QML app, see the README.md under the app/ subdirectory.
