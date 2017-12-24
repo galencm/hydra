@@ -29,6 +29,9 @@
 
 #include "hydra_classes.h"
 
+#define ZYRE_EVENT_ENTER "ENTER"
+#define ZYRE_EVENT_EXIT "EXIT"
+
 //  Structure of our class
 
 struct _hydra_t {
@@ -501,7 +504,7 @@ static void
 s_self_handle_zyre (self_t *self)
 {
     zyre_event_t *event = zyre_event_new (self->zyre);
-    if (zyre_event_type (event) == ZYRE_EVENT_ENTER) {
+    if (streq (zyre_event_type (event), ZYRE_EVENT_ENTER)) {
         //  Only connect to Hydra nodes (not other Zyre nodes)
         char *endpoint = zyre_event_header (event, "X-HYDRA");
         if (endpoint) {
@@ -515,7 +518,7 @@ s_self_handle_zyre (self_t *self)
         }
     }
     else
-    if (zyre_event_type (event) == ZYRE_EVENT_EXIT) {
+    if (streq (zyre_event_type (event), ZYRE_EVENT_EXIT)) {
         hydra_client_t *client =
             (hydra_client_t *) zhashx_lookup (self->peers, zyre_event_sender (event));
         if (client) 
