@@ -504,6 +504,7 @@ static void
 s_self_handle_zyre (self_t *self)
 {
     zyre_event_t *event = zyre_event_new (self->zyre);
+    const char *sender = zyre_event_peer_uuid(event);
     if (streq (zyre_event_type (event), ZYRE_EVENT_ENTER)) {
         //  Only connect to Hydra nodes (not other Zyre nodes)
         char *endpoint = zyre_event_header (event, "X-HYDRA");
@@ -511,7 +512,7 @@ s_self_handle_zyre (self_t *self)
             hydra_client_t *client = hydra_client_new ();
             assert (client);
             if (hydra_client_connect (client, endpoint, 1000) == 0
-            && !zhashx_insert (self->peers, zyre_event_sender (event), client)) {
+            && !zhashx_insert (self->peers, sender, client)) {
                 zpoller_add (self->poller, hydra_client_msgpipe (client));
                 hydra_client_sync (client);
             }
@@ -520,7 +521,7 @@ s_self_handle_zyre (self_t *self)
     else
     if (streq (zyre_event_type (event), ZYRE_EVENT_EXIT)) {
         hydra_client_t *client =
-            (hydra_client_t *) zhashx_lookup (self->peers, zyre_event_sender (event));
+            (hydra_client_t *) zhashx_lookup (self->peers, sender);
         if (client) 
             zpoller_remove (self->poller, hydra_client_msgpipe (client));
         hydra_client_destroy (&client);
