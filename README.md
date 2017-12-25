@@ -52,6 +52,10 @@ After every run of `./configure` find the line in `Makefile` starting with `CPPF
 ```
 -Werror
 ```
+or from the commandline:
+```
+sed -i -- 's/-Werror//g' Makefile
+```
 Then run `make check`
 
 **Pkg-config**

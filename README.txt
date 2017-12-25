@@ -27,9 +27,13 @@ To build the Hydra C stack do the following:
 
 **Remove `-Werror` flag**
 
-BefoAfter every run of `./configure` find the line in `Makefile` starting with `CPPFLAGS =` and remove the flag:
+After every run of `./configure` find the line in `Makefile` starting with `CPPFLAGS =` and remove the flag:
 ```
 -Werror
+```
+or from the commandline:
+```
+sed -i -- 's/-Werror//g' Makefile
 ```
 Then run `make check`
 
