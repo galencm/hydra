@@ -78,7 +78,7 @@
         Set the post content to a chunk of data. Recalculates the post digest
         from the chunk contents. Takes ownership of the chunk. The data is not
         stored on disk until you call hydra_post_save.
-        <argument name = "data" type = "anything" constant = "1" />
+        <argument name = "data" type = "anything" mutable = "0" />
         <argument name = "size" type = "integer" c_type = "size_t" />
     </method>
     
