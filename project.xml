@@ -22,4 +22,6 @@
     <model name = "hydra_server" />
     <model name = "hydra_server" script = "zproto_server_clj.gsl" />
     <model name = "hydra_client" />
+
+    <target name = "python" />
 </project>
