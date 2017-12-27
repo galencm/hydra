@@ -54,7 +54,7 @@ After every run of `./configure` find the line in `Makefile` starting with `CPPF
 ```
 or from the commandline:
 ```
-sed -i '/^CPPFLAGS/s/-Werror/r/' Makefile
+sed -i '/^CPPFLAGS/s/-Werror//' Makefile
 ```
 Then run `make check`
 
