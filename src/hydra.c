@@ -246,8 +246,9 @@ hydra_store_chunk (hydra_t *self, const char *subject, const char *parent_id,
                    const char *mime_type, zchunk_t *chunk)
 {
     char *post_id;
+
     zsock_send (self->actor, "sssssb", "POST", subject, parent_id, mime_type,
-                "chunk", chunk, zchunk_size (chunk));
+                "chunk", zchunk_data (chunk), zchunk_size (chunk));
     zsock_recv (self->actor, "s", &post_id);
     return post_id;
 }
