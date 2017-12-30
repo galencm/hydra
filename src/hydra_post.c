@@ -447,6 +447,7 @@ hydra_post_dup (hydra_post_t *self)
             copy->location = strdup (self->location);
         strcpy (copy->digest, self->digest);
         copy->content_size = self->content_size;
+        copy->content = zchunk_dup (self->content);
     }
     return copy;
 }
